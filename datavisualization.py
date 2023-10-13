@@ -26,7 +26,8 @@ def visualise_data():
         plt.xlabel(numerical_feature)
         plt.show()
     # Correlation matrix
-    corr = data.corr()
+    data_num = data[numerical_features]
+    corr = data_num.corr()
     plt.figure(figsize = (12,12))
     mp = sns.heatmap(corr, linewidth = 1 ,  annot=True, cmap="coolwarm", fmt=".2f")
     plt.show()
