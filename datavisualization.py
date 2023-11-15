@@ -44,6 +44,8 @@ from data_preprocess import data_preprocess
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 import plotly.io as pio
+import io
+from PIL import Image
 
 a = []
 def visualise_data():
