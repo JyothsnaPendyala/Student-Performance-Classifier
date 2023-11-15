@@ -44,6 +44,7 @@ from data_preprocess import data_preprocess
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 
+a = []
 def visualise_data():
     data, numerical_features, categorical_features = data_preprocess()
     # fig = ff.create_distplot([data[c] for c in numerical_features], numerical_features, bin_size=.25, show_rug=False)
@@ -64,26 +65,42 @@ def visualise_data():
     fig.update_layout(template='plotly_dark')
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False)
-    fig.show()
+    a.append(fig)
+    # fig.show()
     for numerical_feature in numerical_features:
         fig = ff.create_distplot([data[numerical_feature]], [numerical_feature], show_rug=False)
         fig.update_layout(template='plotly_dark')
         fig.update_xaxes(title_text=numerical_feature, showgrid=False)
         fig.update_yaxes(showgrid=False)
-        fig.show()
+        a.append(fig)
+        # fig.show()
     
     for numerical_feature in numerical_features:
         fig = px.box(data, y=numerical_feature)
         fig.update_layout(template='plotly_dark')
         fig.update_xaxes(showgrid=False)
         fig.update_yaxes(showgrid=False,zeroline=True,zerolinewidth=4)
-        fig.show()
+        a.append(fig)
+        # fig.show()
     
     for categorical_feature in categorical_features:
         fig = px.histogram(data, x=categorical_feature)
         fig.update_layout(template='plotly_dark')
         fig.update_xaxes(showgrid=False)
         fig.update_yaxes(showgrid=False)
-        fig.show()
+        a.append(fig)
+        # fig.show()
+
+figures = a
+image_list = [pio.to_image(fig, format='png', width=1440, height=900, scale=1.5) for fig in figures]
+for index, image in enumerate(image_list):
+    with io.BytesIO() as tmp:
+        tmp.write(image)  # write the image bytes to the io.BytesIO() temporary object
+        image = Image.open(tmp).convert('RGB')  # convert and overwrite 'image' to prevent creating a new variable
+        image_list[index] = image  # overwrite byte image data in list, replace with PIL converted image data
+ 
+# pop first item from image_list, use that to access .save(). Then refer back to image_list to append the rest
+image_list.pop(0).save(r'./Student Performance Preddection#588.pdf', 'PDF',
+                    save_all=True, append_images=image_list, resolution=100.0)
 
 visualise_data()
