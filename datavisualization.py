@@ -91,16 +91,16 @@ def visualise_data():
         a.append(fig)
         # fig.show()
 
-figures = a
-image_list = [pio.to_image(fig, format='png', width=1440, height=900, scale=1.5) for fig in figures]
-for index, image in enumerate(image_list):
-    with io.BytesIO() as tmp:
-        tmp.write(image)  # write the image bytes to the io.BytesIO() temporary object
-        image = Image.open(tmp).convert('RGB')  # convert and overwrite 'image' to prevent creating a new variable
-        image_list[index] = image  # overwrite byte image data in list, replace with PIL converted image data
- 
-# pop first item from image_list, use that to access .save(). Then refer back to image_list to append the rest
-image_list.pop(0).save(r'./Student Performance Preddection#588.pdf', 'PDF',
+    figures = a
+    image_list = [pio.to_image(fig, format='png', width=1440, height=900, scale=1.5) for fig in figures]
+    for index, image in enumerate(image_list):
+        with io.BytesIO() as tmp:
+            tmp.write(image)  # write the image bytes to the io.BytesIO() temporary object
+            image = Image.open(tmp).convert('RGB')  # convert and overwrite 'image' to prevent creating a new variable
+            image_list[index] = image  # overwrite byte image data in list, replace with PIL converted image data
+    
+    # pop first item from image_list, use that to access .save(). Then refer back to image_list to append the rest
+    image_list.pop(0).save(r'./Student Performance Preddection#588.pdf', 'PDF',
                     save_all=True, append_images=image_list, resolution=100.0)
 
 visualise_data()
