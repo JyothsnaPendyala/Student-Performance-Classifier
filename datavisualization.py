@@ -12,7 +12,7 @@
 #     for categorical_column in categorical_features:
 #         fig, axs = plt.subplots(figsize=(5,5))
 #         sns.countplot(data=data, x=categorical_column)
-#         plt.show()
+#          plt.show()
 #     #Distrubution of numerical features
 #     for numerical_feature in numerical_features:
 #         fig, axs = plt.subplots(figsize=(5,4))
@@ -68,7 +68,7 @@ def visualise_data():
     fig.update_layout(template='plotly_dark')
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False)
-    a.append(fig)
+    #a.append(fig)
     # fig.show()
     for numerical_feature in numerical_features:
         fig = ff.create_distplot([data[numerical_feature]], [numerical_feature], show_rug=False)
@@ -76,7 +76,7 @@ def visualise_data():
         fig.update_xaxes(title_text=numerical_feature, showgrid=False)
         fig.update_yaxes(showgrid=False)
         a.append(fig)
-        # fig.show()
+        fig.write_image(f"distplot_{numerical_feature}.jpg")
     
     for numerical_feature in numerical_features:
         fig = px.box(data, y=numerical_feature)
@@ -85,7 +85,7 @@ def visualise_data():
         fig.update_yaxes(showgrid=False,zeroline=True,zerolinewidth=4)
         a.append(fig)
         # fig.show()
-    
+        fig.write_image(f"boxplot_{numerical_feature}.jpg")
     for categorical_feature in categorical_features:
         fig = px.histogram(data, x=categorical_feature)
         fig.update_layout(template='plotly_dark')
@@ -93,17 +93,17 @@ def visualise_data():
         fig.update_yaxes(showgrid=False)
         a.append(fig)
         # fig.show()
-
-    figures = a
-    image_list = [pio.to_image(fig, format='png', width=1440, height=900, scale=1.5) for fig in figures]
-    for index, image in enumerate(image_list):
-        with io.BytesIO() as tmp:
-            tmp.write(image)  # write the image bytes to the io.BytesIO() temporary object
-            image = Image.open(tmp).convert('RGB')  # convert and overwrite 'image' to prevent creating a new variable
-            image_list[index] = image  # overwrite byte image data in list, replace with PIL converted image data
+        fig.write_image(f"histogram_{categorical_feature}.jpg")
+    # figures = a
+    # image_list = [pio.to_image(fig, format='png', width=1440, height=900, scale=1.5) for fig in figures]
+    # for index, image in enumerate(image_list):
+    #     with io.BytesIO() as tmp:
+    #         tmp.write(image)  # write the image bytes to the io.BytesIO() temporary object
+    #         image = Image.open(tmp).convert('RGB')  # convert and overwrite 'image' to prevent creating a new variable
+    #         image_list[index] = image  # overwrite byte image data in list, replace with PIL converted image data
     
-    # pop first item from image_list, use that to access .save(). Then refer back to image_list to append the rest
-    image_list.pop(0).save(r'./Student Performance Predictor - Classification#600.pdf', 'PDF',
-                    save_all=True, append_images=image_list, resolution=100.0)
+    # # pop first item from image_list, use that to access .save(). Then refer back to image_list to append the rest
+    # image_list.pop(0).save(r'./Student Performance Predictor - Classification#600.pdf', 'PDF',
+    #                 save_all=True, append_images=image_list, resolution=100.0)
     return data
 visualise_data()
