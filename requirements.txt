@@ -7,3 +7,4 @@ seaborn
 kaleido
 ipython
 boto3
+imblearn
