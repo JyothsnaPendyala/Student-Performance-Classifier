@@ -6,3 +6,4 @@ scikit-learn
 seaborn
 kaleido
 ipython
+boto3
