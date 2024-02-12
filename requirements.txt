@@ -8,3 +8,4 @@ kaleido
 ipython
 boto3
 imblearn
+pymysql
