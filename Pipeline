@@ -1,17 +1,6 @@
 pipeline{
     agent any
-    environment {
-        // Define variables to store decrypted secrets
-        MY_SECRET = sh(script: 'git secret reveal -p', returnStdout: true).trim()
-        // Add more variables as needed
-    }
     stages{
-        stage("----") {
-             steps{   // Example usage of the secret
-                sh "echo $MY_SECRET"
-                // Perform other steps using the secrets
-            }
-        }
         stage("envvar"){
             steps{
                sh 'printenv'
