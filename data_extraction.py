@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import subprocess
 
-os.environ("sudo apt-get update")
-os.environ("sudo apt-get install git-secret")
+os.system("sudo apt-get update")
+os.system("sudo apt-get install git-secret")
 
 hostname = subprocess.check_output(['git', 'secret', 'reveal', '-p', 'DB_HOSTNAME']).decode().strip()
 #hostname = os.environ.get('DB_HOSTNAME')
