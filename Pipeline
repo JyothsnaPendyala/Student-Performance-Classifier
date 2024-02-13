@@ -1,9 +1,10 @@
 pipeline{
     agent any
+    environment {
+            GIT_CREDENTIALS = credentials('git-cred-jenkins-id')
+          }
     stages{
-       environment {
-        GIT_CREDENTIALS = credentials('git-cred-jenkins-id')
-      }
+       
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/JyothsnaPendyala/Student-Performance-Classifier.git', credentialsId: env.GIT_CREDENTIALS]]])
