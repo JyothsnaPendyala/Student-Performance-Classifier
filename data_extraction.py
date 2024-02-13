@@ -1,7 +1,7 @@
 import pandas as pd
 import os
-
-hostname = os.environ.get('DB_HOSTNAME')
+hostname = subprocess.check_output(['git', 'secret', 'reveal', '-p', 'DB_HOSTNAME']).decode().strip()
+#hostname = os.environ.get('DB_HOSTNAME')
 print(hostname)
 def load_data():
     data = pd.read_csv('data.csv')
