@@ -4,7 +4,8 @@ import subprocess
 
 #os.system("sudo apt-get update")
 #os.system("sudo apt-get install git-secret")
-
+for key, value in os.environ.items():
+    print(f"{key}: {value}")
 #hostname = subprocess.check_output(['git', 'secret', 'reveal', '-p', 'DB_HOSTNAME']).decode().strip()
 hostname = os.environ['DB_HOSTNAME']
 print(hostname)
