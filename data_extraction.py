@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+import subprocess
+
 hostname = subprocess.check_output(['git', 'secret', 'reveal', '-p', 'DB_HOSTNAME']).decode().strip()
 #hostname = os.environ.get('DB_HOSTNAME')
 print(hostname)
